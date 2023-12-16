@@ -31,8 +31,13 @@ class CardController extends Controller
         }
     }
 
-    public function show(Request $request){
-
+    public function show(int $card): JsonResponse{
+        try {
+            $result = $this->cardRepository->show($card);
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Card not found.'], 500);
+        }
     }
 
     public function create(){

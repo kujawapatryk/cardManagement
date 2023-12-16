@@ -27,4 +27,9 @@ class CardRepository
         return $this->card->destroy($cardId);
     }
 
+    public function show(int $card)
+    {
+        return $this->card->findOrFail($card);
+    }
+
 }
