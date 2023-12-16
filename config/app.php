@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Card Management'),
 
     /*
     |--------------------------------------------------------------------------
@@ -187,4 +187,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'pagination' => [
+        'per_page' => 15,
+    ],
 ];
