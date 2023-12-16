@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Card extends Model
 {
@@ -15,4 +16,13 @@ class Card extends Model
     protected $dates = [
         'activation_date', 'expiry_date'
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($card) {
+            $card->activation_date = $card->activation_date ?? Carbon::now();
+        });
+    }
 }
