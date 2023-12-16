@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CardRepository;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
+    protected CardRepository $cardRepository;
+
+    public function __construct(CardRepository $cardRepository)
+    {
+        $this->cardRepository = $cardRepository;
+    }
     public function index(){
 
     }
