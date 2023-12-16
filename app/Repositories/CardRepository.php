@@ -19,4 +19,8 @@ class CardRepository
         return $this->card->paginate($perPage);
     }
 
+    public function store(array $data): Card {
+        return $this->card->create($data);
+    }
+
 }
