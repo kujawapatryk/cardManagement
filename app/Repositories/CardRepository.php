@@ -23,4 +23,8 @@ class CardRepository
         return $this->card->create($data);
     }
 
+    public function destroy(int $cardId): bool {
+        return $this->card->destroy($cardId);
+    }
+
 }

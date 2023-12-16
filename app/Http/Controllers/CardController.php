@@ -58,7 +58,17 @@ class CardController extends Controller
 
     }
 
-    public function destroy(Request $request){
+    public function destroy(int $card): JsonResponse{
+        try {
+            $result = $this->cardRepository->destroy($card);
+            if ($result) {
+                return response()->json(['message' => 'Card successfully deleted.'], 200);
+            } else {
+                return response()->json(['error' => 'Data deletion has failed.'], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Data deletion has failed.'], 500);
+        }
 
     }
 
