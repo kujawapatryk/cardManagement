@@ -15,8 +15,10 @@ class Card extends Model
     protected $fillable = [
         'card_number', 'pin', 'expiry_date', 'balance'
     ];
-    protected $dates = [
-        'activation_date', 'expiry_date'
+
+    protected $casts = [
+        'activation_date' => 'datetime:Y-m-d H:i:s',
+        'expiry_date' => 'datetime:Y-m-d'
     ];
     protected $hidden = ['created_at', 'updated_at'];
 
