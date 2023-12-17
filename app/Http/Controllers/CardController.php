@@ -24,7 +24,12 @@ class CardController extends Controller
         $perPage = $validatedData['limit'] ?? config('app.pagination.per_page');
         $cards = $this->cardRepository->getAllPaginated($perPage);
 
-        return response()->json($cards);
+        return response()->json([
+                'total' => $cards->total(),
+                'per_page' => $cards->perPage(),
+                'current_page' => $cards->currentPage(),
+                'data' => $cards->items(),
+            ]);
 
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while fetching data.'], 500);
