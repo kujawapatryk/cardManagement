@@ -16,7 +16,7 @@ class CardRepository
     }
 
     public function getAllPaginated(int $perPage): LengthAwarePaginator {
-        return $this->card->paginate($perPage);
+        return $this->card->orderBy('id', 'desc')->paginate($perPage);
     }
 
     public function store(array $data): Card {
