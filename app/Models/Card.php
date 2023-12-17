@@ -16,6 +16,7 @@ class Card extends Model
     protected $dates = [
         'activation_date', 'expiry_date'
     ];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public static function boot(): void
     {

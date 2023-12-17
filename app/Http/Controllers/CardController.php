@@ -33,7 +33,7 @@ class CardController extends Controller
 
     public function show(int $card): JsonResponse{
         try {
-            $result = $this->cardRepository->show($card);
+            $result = $this->cardRepository->getOne($card);
             return response()->json($result);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Card not found.'], 500);
@@ -59,8 +59,14 @@ class CardController extends Controller
 
     }
 
-    public function update(Request $request){
-
+    public function update(StoreCardRequest $request, int $card){
+        try {
+            $validatedData = $request->validated();
+            $result = $this->cardRepository->store($validatedData);
+            return response()->json($result,201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Data addition has failed.'], 500);
+        }
     }
 
     public function destroy(int $card): JsonResponse{
