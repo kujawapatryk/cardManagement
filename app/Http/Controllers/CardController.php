@@ -59,13 +59,13 @@ class CardController extends Controller
 
     }
 
-    public function update(StoreCardRequest $request, int $card){
+    public function update(StoreCardRequest $request, int $card):JsonResponse{
         try {
             $validatedData = $request->validated();
-            $result = $this->cardRepository->store($validatedData);
-            return response()->json($result,201);
+            $result = $this->cardRepository->update($validatedData, $card);
+            return response()->json($result,200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Data addition has failed.'], 500);
+            return response()->json(['error' => 'Data update has failed.'], 500);
         }
     }
 

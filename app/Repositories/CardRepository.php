@@ -32,4 +32,10 @@ class CardRepository
         return $this->card->findOrFail($card);
     }
 
+    public function update(array $data, int $cardId): Card {
+        $card = $this->card->findOrFail($cardId);
+        $card->update($data);
+        return $card;
+    }
+
 }
