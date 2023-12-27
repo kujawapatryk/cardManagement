@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 class Card extends Model
@@ -33,5 +34,10 @@ class Card extends Model
         static::creating(function ($card) {
             $card->activation_date = $card->activation_date ?? Carbon::now();
         });
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
