@@ -3,37 +3,36 @@
 namespace App\Repositories;
 
 use App\Models\Card;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class CardRepository
 {
-    protected Card $card;
-
-    public function __construct(Card $card)
-    {
-        $this->card = $card;
-    }
 
     public function getAllPaginated(int $perPage): LengthAwarePaginator {
-        return $this->card->orderBy('id', 'desc')->paginate($perPage);
+        $user = Auth::user();
+        return $user->cards()->orderBy('id', 'desc')->paginate($perPage);
     }
 
-    public function store(array $data): Card {
-        return $this->card->create($data);
+    public function store(array $data): Card
+    {
+        $user = Auth::user();
+        return $user->cards()->create($data);
     }
 
     public function destroy(int $cardId): bool {
-        return $this->card->destroy($cardId);
+        $card = $this->getOne($cardId);
+        return $card->delete();
     }
 
-    public function getOne(int $card)
+    public function getOne(int $cardId): Card
     {
-        return $this->card->findOrFail($card);
+        $user = Auth::user();
+        return $user->cards()->findOrFail($cardId);
     }
 
     public function update(array $data, int $cardId): Card {
-        $card = $this->card->findOrFail($cardId);
+        $card = $this->getOne($cardId);
         $card->update($data);
         return $card;
     }
